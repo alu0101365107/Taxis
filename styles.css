@@ -1,0 +1,48 @@
+/* Estilos para la tabla */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+/* Estilos para la tabla que no puede tener más de 10 filas */
+table.limited {
+    width: 50%; /* La mitad del ancho para mostrar dos tablas lado a lado */
+    float: left;
+    margin-right: 20px; /* Espacio entre las dos tablas */
+}
+
+/* Estilos para el número total en rojo si es más de 10 */
+td.total {
+    color: red;
+}
+
+/* Estilos para las licencias en color naranja */
+td.licencia {
+    color: orange;
+}
+
+/* Estilos para mostrar las fechas de viaje como calendario */
+td.viaje {
+    display: inline-block;
+    padding: 4px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    margin-right: 4px;
+}
+
+/* Estilos para resaltar las fechas en el calendario */
+td.viaje.active {
+    background-color: #ffcc00;
+    font-weight: bold;
+}
+

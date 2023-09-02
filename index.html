@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información Organizada</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>Información Organizada</h1>
+    <table border="1" id="informacionTabla">
+        <thead>
+            <tr>
+                <th>Licencia</th>
+                <th>Total</th>
+                <th>Viajes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se llenarán las filas de la tabla -->
+        </tbody>
+    </table>
+
+    <script>
+        // Declarar el arreglo informacionMultiple
+        var informacionMultiple = [];
+
+        // Función para llenar la tabla con los datos
+        function llenarTabla(data) {
+            var tabla = document.getElementById("informacionTabla");
+            var tbody = tabla.querySelector("tbody");
+            
+            // Limpiar el contenido anterior de tbody
+            tbody.innerHTML = "";
+
+            data.forEach(function (item, index) {
+                var fila = document.createElement("tr");
+                fila.innerHTML = "<td>" + item.Licencia + "</td>" +
+                                 "<td>" + item.Total + "</td>" +
+                                 "<td>" + item.Viajes.join("<br>") + "</td>";
+                tbody.appendChild(fila);
+
+                // Cambiar el diseño a columnas si hay más de 10 filas
+                if (index === 9) {
+                    tabla.classList.add("columnas");
+                }
+            });
+        }
+    </script>
+
+    <!-- Importar el archivo script.js -->
+    <script src="script.js"></script>
+    <script src="getSheetData.js"></script>
+</body>
+</html>
