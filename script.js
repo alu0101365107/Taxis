@@ -4,7 +4,49 @@ window.addEventListener("DOMContentLoaded", (event) => {
     console.log("sheet data: ", sheetData);
     informacionMultiple = sheetData;
     llenarTabla(informacionMultiple);
-    //ADD YOUR CODE TO WORK WITH sheetData ARRAY OF OBJECTS HERE
+    // Obtener la fecha de hoy
+  var hoy = new Date("09/02/2023");
+  // Filtrar las licencias que tienen un viaje en la fecha de hoy
+  var licenciasConViajeHoy = informacionMultiple.filter(function (item) {
+      var viajes = item.Viajes || [];
+      for (var i = 0; i < viajes.length; i++) {
+          viajes[i] = viajes[i].slice(4)
+          var partes = viajes[i].substring(1, viajes[i].length - 1).split(',');
+          // Obtiene los componentes de la fecha a partir del array
+          var año = parseInt(partes[0]);
+          var mes = parseInt(partes[1]) + 1;
+          var día = parseInt(partes[2]);
+          var hora = parseInt(partes[3]);
+          var minutos = parseInt(partes[4]);
+          var segundos = parseInt(partes[5]);
+          var fechaViaje = new Date(año, mes - 1, día, hora, minutos, segundos)
+          console.log(hoy.toDateString())
+          console.log(fechaViaje.toDateString())
+          if (fechaViaje.toDateString() === hoy.toDateString()) {
+              return true;
+          }
+      }
+      return false;
+  });
+  
+  // Crear una tabla para mostrar las licencias con viaje hoy
+  var tablaLicenciasHoy = document.createElement("table");
+  tablaLicenciasHoy.border = "1";
+  tablaLicenciasHoy.innerHTML = "<thead><tr><th>Licencia</th></tr></thead><tbody></tbody>";
+  var tbodyLicenciasHoy = tablaLicenciasHoy.querySelector("tbody");
+  
+  // Llenar la tabla con las licencias encontradas
+  licenciasConViajeHoy.forEach(function (licencia) {
+      var fila = document.createElement("tr");
+      var celdaLicencia = document.createElement("td");
+      celdaLicencia.textContent = licencia.Licencia || "";
+      fila.appendChild(celdaLicencia);
+      tbodyLicenciasHoy.appendChild(fila);
+  });
+  
+  // Agregar la tabla de licencias con viaje hoy al documento
+  var contenedorTablaLicenciasHoy = document.getElementById("tablaLicenciasHoy");
+  contenedorTablaLicenciasHoy.appendChild(tablaLicenciasHoy);
   };
 
   // --==== QUERY EXAMPLES ====--
