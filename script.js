@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     informacionMultiple = sheetData;
     llenarTabla(informacionMultiple);
     // Obtener la fecha de hoy
-  var hoy = new Date("09/02/2023");
+  var hoy = new Date();
   // Filtrar las licencias que tienen un viaje en la fecha de hoy
   var licenciasConViajeHoy = informacionMultiple.filter(function (item) {
       var viajes = item.Viajes || [];
