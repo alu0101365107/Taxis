@@ -39,17 +39,6 @@ const getSheetData = ({ sheetID, sheetName, query, callback }) => {
                 date = jsData.table.rows[tmp].c[index].v
                 if (date != undefined && typeof date == "string") {
                     viajes.push(date)
-                    // date = date.slice(4)
-                    // var partes = date.substring(1, date.length - 1).split(',');
-                    // // Obtiene los componentes de la fecha a partir del array
-                    // var año = parseInt(partes[0]);
-                    // var mes = parseInt(partes[1]);
-                    // var día = parseInt(partes[2]);
-                    // var hora = parseInt(partes[3]);
-                    // var minutos = parseInt(partes[4]);
-                    // var segundos = parseInt(partes[5]);
-                    // console.log(date + " " + jsData.table.rows[tmp].c[index].f + " " + 
-                    // isToday(new Date(año, mes - 1, día, hora, minutos, segundos)))
                 }
             } 
         } 

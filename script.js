@@ -3,45 +3,75 @@ window.addEventListener("DOMContentLoaded", (event) => {
   const sheetDataHandler = (sheetData) => {
     console.log("sheet data: ", sheetData);
     informacionMultiple = sheetData;
+    todaData = sheetData
     llenarTabla(informacionMultiple);
     // Obtener la fecha de hoy
   var hoy = new Date();
   // Filtrar las licencias que tienen un viaje en la fecha de hoy
   var licenciasConViajeHoy = informacionMultiple.filter(function (item) {
       var viajes = item.Viajes || [];
-      for (var i = 0; i < viajes.length; i++) {
-          viajes[i] = viajes[i].slice(4)
-          var partes = viajes[i].substring(1, viajes[i].length - 1).split(',');
-          // Obtiene los componentes de la fecha a partir del array
-          var año = parseInt(partes[0]);
-          var mes = parseInt(partes[1]) + 1;
-          var día = parseInt(partes[2]);
-          var hora = parseInt(partes[3]);
-          var minutos = parseInt(partes[4]);
-          var segundos = parseInt(partes[5]);
-          var fechaViaje = new Date(año, mes - 1, día, hora, minutos, segundos)
-          console.log(hoy.toDateString())
-          console.log(fechaViaje.toDateString())
-          if (fechaViaje.toDateString() === hoy.toDateString()) {
-              return true;
+      for (var i = 0; i < viajes.length ; i++) {
+          if (getDateCorrect(viajes[i]).toDateString() === hoy.toDateString()) {
+            if (item.ViajesHoy == undefined) {
+              item.ViajesHoy = 1
+            } else {
+              item.ViajesHoy +=  1
+            }
           }
       }
-      return false;
+      if (item.ViajesHoy != undefined) {
+        return item
+      } else {
+        return 0
+      }
   });
-  
+// Convertir las cadenas de fecha en objetos Date
+licenciasConViajeHoy.forEach(convertirCadenasAFechas);
+
+// Ordenar las licencias por fecha de Viajes (la más reciente primero)
+licenciasConViajeHoy.sort(compararLicenciasPorFecha);
+  // var ordenViajesHoy = []
+  // licenciasConViajeHoy = licenciasConViajeHoy.filter(function (item) {
+  //   licenciasConViajeHoy.filter(function (item2) {
+  //     for 
+  //   })
+  //   return item
+  // })
   // Crear una tabla para mostrar las licencias con viaje hoy
   var tablaLicenciasHoy = document.createElement("table");
   tablaLicenciasHoy.border = "1";
-  tablaLicenciasHoy.innerHTML = "<thead><tr><th>Licencia</th></tr></thead><tbody></tbody>";
+  tablaLicenciasHoy.innerHTML = "<thead><tr><th>Licencia</th><th>Total</th></tr></thead><tbody></tbody>";
   var tbodyLicenciasHoy = tablaLicenciasHoy.querySelector("tbody");
   
   // Llenar la tabla con las licencias encontradas
-  licenciasConViajeHoy.forEach(function (licencia) {
+  var contadorTotal = 0
+  var numeroServicio = 1
+  licenciasConViajeHoy.forEach(function (licencia, index, array) {
       var fila = document.createElement("tr");
-      var celdaLicencia = document.createElement("td");
-      celdaLicencia.textContent = licencia.Licencia || "";
-      fila.appendChild(celdaLicencia);
+      // celdaLicencia.textContent = licencia.Licencia || "";
+      var string = ""
+      var i = licencia.Viajes.length - 1
+      for (var contadorViajesHoy = licencia.ViajesHoy; contadorViajesHoy > 0; contadorViajesHoy--) {
+        string += licencia.Viajes[i].toLocaleTimeString() + " "
+        i--
+      }
+      fila.innerHTML = "<td>" + (numeroServicio++) + ". " + licencia.Licencia + "</td>" + "<td><b>" + licencia.ViajesHoy + "</b> "+ string + "</td>";
+      contadorTotal += licencia.ViajesHoy
       tbodyLicenciasHoy.appendChild(fila);
+      if (index == array.length - 1) {
+        fila.innerHTML = "<th>Total</th>" + "<th>" + contadorTotal + "</th>";
+        tbodyLicenciasHoy.appendChild(fila);
+        fila = document.createElement("tr");
+        var licenciasNoViaje = encontrarLicenciasFaltantes(licenciasConViajeHoy,todaData)
+        var stringLicenciasNoViaje = ""
+        licenciasNoViaje.forEach(function (item) {
+            if (item.Licencia != undefined) {
+            stringLicenciasNoViaje += item.Licencia.slice(2, item.Licencia.length) + " "
+          }
+        })
+        fila.innerHTML = "<th>Licencias Restantes: " + (licenciasNoViaje.length - 1) + "</th>" + "<th>" + stringLicenciasNoViaje + "</th>";
+        tbodyLicenciasHoy.appendChild(fila);
+      }
   });
   
   // Agregar la tabla de licencias con viaje hoy al documento
@@ -67,3 +97,55 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 });
 
+function getDateCorrect(date) {
+  date = date.slice(4)
+  var partes = date.substring(1, date.length - 1).split(',');
+  // Obtiene los componentes de la fecha a partir del array
+  var año = parseInt(partes[0]);
+  var mes = parseInt(partes[1]) + 1;
+  var día = parseInt(partes[2]);
+  var hora = parseInt(partes[3]);
+  var minutos = parseInt(partes[4]);
+  var segundos = parseInt(partes[5]);
+  return fechaViaje = new Date(año, mes - 1, día, hora, minutos, segundos) 
+}
+
+// Función de comparación personalizada para ordenar las licencias por la fecha más reciente de Viajes
+function compararLicenciasPorFecha(a, b) {
+  // Obtener las fechas más recientes de Viajes de ambas licencias
+  var fechaMasRecienteA = a.Viajes.length > 0 ? a.Viajes.reduce(function (maxDate, fecha) {
+      return fecha > maxDate ? fecha : maxDate;
+  }) : null;
+
+  var fechaMasRecienteB = b.Viajes.length > 0 ? b.Viajes.reduce(function (maxDate, fecha) {
+      return fecha > maxDate ? fecha : maxDate;
+  }) : null;
+
+  // Comparar las fechas más recientes (si existen)
+  if (fechaMasRecienteA && fechaMasRecienteB) {
+      return fechaMasRecienteB - fechaMasRecienteA; // Orden descendente (el más reciente primero)
+  } else if (!fechaMasRecienteA && fechaMasRecienteB) {
+      return 1; // Colocar b antes si a no tiene fecha
+  } else if (fechaMasRecienteA && !fechaMasRecienteB) {
+      return -1; // Colocar a antes si b no tiene fecha
+  } else {
+      return 0; // Igual si ambas licencias no tienen fecha
+  }
+}
+
+// Función para convertir las cadenas de fecha en objetos Date
+function convertirCadenasAFechas(licencia) {
+  licencia.Viajes = licencia.Viajes.map(function (fechaStr) {
+      return getDateCorrect(fechaStr);
+  });
+  return licencia;
+}
+
+function encontrarLicenciasFaltantes(licencias1, licencias2) {
+  // Crear un conjunto (Set) de licencias en el primer array
+  const setLicencias1 = new Set(licencias1.map((licencia) => licencia.Licencia));
+
+  // Filtrar el segundo array para encontrar las licencias que no están en el primer array
+  const licenciasFaltantes = licencias2.filter((licencia) => !setLicencias1.has(licencia.Licencia));
+  return licenciasFaltantes;
+}
