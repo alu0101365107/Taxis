@@ -108,10 +108,10 @@ const darkModeButton = document.getElementById("darkModeButton");
 const sortButton = document.getElementById("sortButton");
 const body = document.body;
 
-// Manejar el cambio al modo oscuro
-darkModeButton.addEventListener("click", () => {
-  body.classList.toggle("dark-mode");
-});
+// // Manejar el cambio al modo oscuro
+// darkModeButton.addEventListener("click", () => {
+//   body.classList.toggle("dark-mode");
+// });
 
 // Obtén una referencia al botón "Ordenar por Total" y a la tabla
 var botonOrdenarPorTotal = document.getElementById("sortButton");
@@ -205,12 +205,6 @@ function obtenerHoraUltimoViaje(viajes) {
     return -1; // Valor predeterminado en caso de que no haya viajes
   }
 }
-
-
-// Ordenar las licencias por hora y minutos del último viaje
-licenciasConViajeHoy.sort(compararLicenciasPorHoraMasReciente);
-
-
 
 // Función para convertir las cadenas de fecha en objetos Date
 function convertirCadenasAFechas(licencia) {
