@@ -151,9 +151,11 @@ botonOrdenarPorTotal.addEventListener("click", function () {
 });
 
 
-botonOrdenarPorTotal.addEventListener("touchstart", function () {
+botonOrdenarPorTotal.addEventListener("pointerdown", function () {
   ordenarTablaPorTotal();
 });
+
+botonOrdenarPorTotal.addEventListener("pointerdown", ordenarTablaPorTotal);
 
 
 function getDateCorrect(dateStr) {
