@@ -2,7 +2,6 @@
 table {
     border-collapse: collapse;
     width: 100%;
-    margin-bottom: 20px;
     border: 1px solid #ccc; /* Borde gris para las tablas */
 }
 
@@ -34,7 +33,7 @@ td.total {
 
 /* Estilos para las licencias en color naranja */
 td.licencia {
-    color: orange;
+    color: orange ;
 }
 
 /* Estilos para mostrar las fechas de viaje como calendario */

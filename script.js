@@ -39,7 +39,7 @@ licenciasConViajeHoy.sort(compararLicenciasPorUltimoViaje);
   // })
   // Crear una tabla para mostrar las licencias con viaje hoy
   var tablaLicenciasHoy = document.createElement("table");
-  tablaLicenciasHoy.border = "1";
+
   var numeroTotalViajes = 0; // Variable para calcular el número total de viajes
   
   // Llenar la tabla con las licencias encontradas
