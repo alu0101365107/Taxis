@@ -27,9 +27,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 // Convertir las cadenas de fecha en objetos Date
 licenciasConViajeHoy.forEach(convertirCadenasAFechas);
-licenciasConViajeHoy.forEach(function(item) {
-  console.log(item)
-})
+
 // Ordenar las licencias por fecha de Viajes (la más reciente primero)
 licenciasConViajeHoy.sort(compararLicenciasPorUltimoViaje);
   // var ordenViajesHoy = []
