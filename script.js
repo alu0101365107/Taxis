@@ -150,6 +150,7 @@ botonOrdenarPorTotal.addEventListener("click", function () {
   botonOrdenarPorTotal.classList.toggle("orden-activo");
 });
 
+botonOrdenarPorTotal.addEventListener("touchstart", ordenarTablaPorTotal);
 
 
 
