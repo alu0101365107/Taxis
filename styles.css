@@ -102,7 +102,7 @@ td.viaje.active {
   
   /* Estilos para los botones */
 .button-container {
-    text-align: right; /* Alineación a la derecha */
+    text-align: center; /* Alineación a la derecha */
     margin-top: 10px;
   }
   
