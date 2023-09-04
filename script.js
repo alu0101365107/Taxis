@@ -27,9 +27,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 // Convertir las cadenas de fecha en objetos Date
 licenciasConViajeHoy.forEach(convertirCadenasAFechas);
-
+licenciasConViajeHoy.forEach(function(item) {
+  console.log(item)
+})
 // Ordenar las licencias por fecha de Viajes (la más reciente primero)
-licenciasConViajeHoy.sort(compararLicenciasPorFecha);
+licenciasConViajeHoy.sort(compararLicenciasPorUltimoViaje);
   // var ordenViajesHoy = []
   // licenciasConViajeHoy = licenciasConViajeHoy.filter(function (item) {
   //   licenciasConViajeHoy.filter(function (item2) {
@@ -126,28 +128,36 @@ function getDateCorrect(dateStr) {
   return null; // Devolvemos null si no se pudo analizar la fecha
 }
 
-// Función de comparación personalizada para ordenar las licencias por la fecha más reciente de Viajes
-function compararLicenciasPorFecha(a, b) {
-  // Obtener las fechas más recientes de Viajes de ambas licencias
-  var fechaMasRecienteA = a.Viajes.length > 0 ? a.Viajes.reduce(function (maxDate, fecha) {
-      return fecha > maxDate ? fecha : maxDate;
-  }) : null;
+function compararLicenciasPorUltimoViaje(a, b) {
+  // Obtener la hora del último viaje de ambas licencias
+  var ultimaHoraA = obtenerHoraUltimoViaje(a.Viajes);
+  var ultimaHoraB = obtenerHoraUltimoViaje(b.Viajes);
 
-  var fechaMasRecienteB = b.Viajes.length > 0 ? b.Viajes.reduce(function (maxDate, fecha) {
-      return fecha > maxDate ? fecha : maxDate;
-  }) : null;
-
-  // Comparar las fechas más recientes (si existen)
-  if (fechaMasRecienteA && fechaMasRecienteB) {
-      return fechaMasRecienteB - fechaMasRecienteA; // Orden descendente (el más reciente primero)
-  } else if (!fechaMasRecienteA && fechaMasRecienteB) {
-      return 1; // Colocar b antes si a no tiene fecha
-  } else if (fechaMasRecienteA && !fechaMasRecienteB) {
-      return -1; // Colocar a antes si b no tiene fecha
+  // Comparar las horas del último viaje
+  if (ultimaHoraA > ultimaHoraB) {
+    return -1; // Colocar a antes si a tiene un último viaje más tarde
+  } else if (ultimaHoraA < ultimaHoraB) {
+    return 1; // Colocar b antes si b tiene un último viaje más tarde
   } else {
-      return 0; // Igual si ambas licencias no tienen fecha
+    return 0; // Igual si ambas licencias tienen la misma hora del último viaje
   }
 }
+
+// Función para obtener la hora del último viaje
+function obtenerHoraUltimoViaje(viajes) {
+  if (viajes.length > 0) {
+    var ultimoViaje = viajes[viajes.length - 1];
+    return ultimoViaje.getHours() * 60 + ultimoViaje.getMinutes();
+  } else {
+    return -1; // Valor predeterminado en caso de que no haya viajes
+  }
+}
+
+
+// Ordenar las licencias por hora y minutos del último viaje
+licenciasConViajeHoy.sort(compararLicenciasPorHoraMasReciente);
+
+
 
 // Función para convertir las cadenas de fecha en objetos Date
 function convertirCadenasAFechas(licencia) {
