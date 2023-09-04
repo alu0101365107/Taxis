@@ -29,18 +29,23 @@ const getSheetData = ({ sheetID, sheetName, query, callback }) => {
       let object = {}
       let Viaje = "Viajes"
       let viajes = [] 
-      for (let tmp = 1; tmp < jsData.table.rows.length; tmp++) {
+      for (let tmp = 1; tmp < jsData.table.rows.length - 1; tmp++) {
         for (let index = 0; index < jsData.table.rows[tmp].c.length; index++) {
-            if (index == 0 && jsData.table.rows[tmp].c[index] != null){
-                object["Licencia"] = jsData.table.rows[tmp].c[index].v
-            } else if (index == 1 && jsData.table.rows[tmp].c[index] != null) { 
+          if (jsData.table.rows[tmp].c[index] != null) {
+            if (index == 0){
+              object["Licencia"] = jsData.table.rows[tmp].c[index].v
+            } else if (index == 1) { 
                 object["Total"] = jsData.table.rows[tmp].c[index].f
             } else if (jsData.table.rows[tmp].c[index] != null) {
-                date = jsData.table.rows[tmp].c[index].v
-                if (date != undefined && typeof date == "string") {
-                    viajes.push(date)
-                }
+              date = jsData.table.rows[tmp].c[index].f
+              if (date != undefined && typeof date == "string") {
+                if (getDateCorrect(date) == "Invalid Date" || getDateCorrect(date) == null)  {
+                  date = jsData.table.rows[tmp].c[index].v
+                }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                viajes.push(date)
+              }
             } 
+          }
         } 
         object[Viaje] = viajes;
         data.push(object)

@@ -97,17 +97,27 @@ licenciasConViajeHoy.sort(compararLicenciasPorFecha);
   });
 });
 
-function getDateCorrect(date) {
-  date = date.slice(4)
-  var partes = date.substring(1, date.length - 1).split(',');
-  // Obtiene los componentes de la fecha a partir del array
-  var año = parseInt(partes[0]);
-  var mes = parseInt(partes[1]) + 1;
-  var día = parseInt(partes[2]);
-  var hora = parseInt(partes[3]);
-  var minutos = parseInt(partes[4]);
-  var segundos = parseInt(partes[5]);
-  return fechaViaje = new Date(año, mes - 1, día, hora, minutos, segundos) 
+function getDateCorrect(dateStr) {
+  var partes = dateStr.match(/\d+/g);
+  if (partes && partes.length >= 5) {
+    var día = parseInt(partes[0]);
+    var mes = parseInt(partes[1]) - 1;
+    var año = parseInt(partes[2]);
+    var hora = parseInt(partes[3]);
+    var minutos = parseInt(partes[4]);
+    var segundos = 0;
+
+    // Ajustar el año para manejar años con dos dígitos
+    if (año >= 0 && año <= 49) {
+      año += 2000; // Siglo 21
+    } else if (año >= 50 && año <= 99) {
+      año += 1900; // Siglo 20
+    }
+
+    return new Date(año, mes, día, hora, minutos, segundos);
+  }
+
+  return null; // Devolvemos null si no se pudo analizar la fecha
 }
 
 // Función de comparación personalizada para ordenar las licencias por la fecha más reciente de Viajes
