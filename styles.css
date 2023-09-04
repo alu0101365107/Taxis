@@ -101,24 +101,25 @@ td.viaje.active {
   }
   
   /* Estilos para los botones */
-  .button-container {
-    text-align: center;
+.button-container {
+    text-align: right; /* Alineación a la derecha */
     margin-top: 10px;
   }
   
   .button {
-    background-color: #007acc; /* Color de fondo del botón */
-    color: #fff; /* Color de texto del botón */
+    background-color: #007acc;
+    color: #fff;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+    transition: background-color 0.3s ease;
+    border-radius: 20px; /* Bordes redondos */
+    margin-left: 10px; /* Margen entre botones */
   }
   
   .button:hover {
-    background-color: #005fa3; /* Color de fondo del botón al pasar el ratón */
+    background-color: #005fa3;
   }
-  
   /* Estilos para el modo oscuro */
   .dark-mode {
     background-color: #333; /* Color de fondo para el modo oscuro */
