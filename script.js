@@ -105,6 +105,56 @@ licenciasConViajeHoy.sort(compararLicenciasPorUltimoViaje);
   });
 });
 
+// Referencias a los botones
+const darkModeButton = document.getElementById("darkModeButton");
+const sortButton = document.getElementById("sortButton");
+const body = document.body;
+
+// Manejar el cambio al modo oscuro
+darkModeButton.addEventListener("click", () => {
+  body.classList.toggle("dark-mode");
+});
+
+// Obtén una referencia al botón "Ordenar por Total" y a la tabla
+var botonOrdenarPorTotal = document.getElementById("sortButton");
+var tabla = document.getElementById("informacionTabla");
+
+// Agrega un controlador de eventos al botón para ordenar la tabla cuando se hace clic
+botonOrdenarPorTotal.addEventListener("click", function () {
+  ordenarTablaPorTotal();
+});
+
+// Función para ordenar la tabla por la columna "Total"
+function ordenarTablaPorTotal() {
+  var tbody = tabla.querySelector("tbody");
+  var filas = Array.from(tbody.querySelectorAll("tr"));
+
+  // Utiliza una función de comparación personalizada para ordenar las filas por "Total"
+  filas.sort(function (filaA, filaB) {
+    var totalA = parseInt(filaA.querySelector("td:nth-child(2)").textContent);
+    var totalB = parseInt(filaB.querySelector("td:nth-child(2)").textContent);
+
+    // Ordena en orden descendente (el número más grande primero)
+    return totalB - totalA;
+  });
+
+  // Limpia el contenido anterior de tbody
+  tbody.innerHTML = "";
+
+  // Vuelve a agregar las filas ordenadas a tbody
+  filas.forEach(function (fila) {
+    tbody.appendChild(fila);
+  });
+}
+
+// También puedes agregar estilos CSS para resaltar el botón cuando está activo
+botonOrdenarPorTotal.addEventListener("click", function () {
+  botonOrdenarPorTotal.classList.toggle("orden-activo");
+});
+
+
+
+
 function getDateCorrect(dateStr) {
   var partes = dateStr.match(/\d+/g);
   if (partes && partes.length >= 5) {
