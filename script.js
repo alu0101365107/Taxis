@@ -40,39 +40,45 @@ licenciasConViajeHoy.sort(compararLicenciasPorFecha);
   // Crear una tabla para mostrar las licencias con viaje hoy
   var tablaLicenciasHoy = document.createElement("table");
   tablaLicenciasHoy.border = "1";
-  tablaLicenciasHoy.innerHTML = "<thead><tr><th>Licencia</th><th>Total</th></tr></thead><tbody></tbody>";
-  var tbodyLicenciasHoy = tablaLicenciasHoy.querySelector("tbody");
+  var numeroTotalViajes = 0; // Variable para calcular el número total de viajes
   
   // Llenar la tabla con las licencias encontradas
-  var contadorTotal = 0
-  var numeroServicio = 1
+  var numeroServicio = 1;
   licenciasConViajeHoy.forEach(function (licencia, index, array) {
-      var fila = document.createElement("tr");
-      // celdaLicencia.textContent = licencia.Licencia || "";
-      var string = ""
-      var i = licencia.Viajes.length - 1
-      for (var contadorViajesHoy = licencia.ViajesHoy; contadorViajesHoy > 0; contadorViajesHoy--) {
-        string += licencia.Viajes[i].toLocaleTimeString() + " "
-        i--
-      }
-      fila.innerHTML = "<td>" + (numeroServicio++) + ". " + licencia.Licencia + "</td>" + "<td><b>" + licencia.ViajesHoy + "</b> "+ string + "</td>";
-      contadorTotal += licencia.ViajesHoy
-      tbodyLicenciasHoy.appendChild(fila);
-      if (index == array.length - 1) {
-        fila.innerHTML = "<th>Total</th>" + "<th>" + contadorTotal + "</th>";
-        tbodyLicenciasHoy.appendChild(fila);
-        fila = document.createElement("tr");
-        var licenciasNoViaje = encontrarLicenciasFaltantes(licenciasConViajeHoy,todaData)
-        var stringLicenciasNoViaje = ""
-        licenciasNoViaje.forEach(function (item) {
-            if (item.Licencia != undefined) {
-            stringLicenciasNoViaje += item.Licencia.slice(2, item.Licencia.length) + " "
-          }
-        })
-        fila.innerHTML = "<th>Licencias Restantes: " + (licenciasNoViaje.length - 1) + "</th>" + "<th>" + stringLicenciasNoViaje + "</th>";
-        tbodyLicenciasHoy.appendChild(fila);
-      }
+    var fila = document.createElement("tr");
+    var string = "";
+    var i = licencia.Viajes.length - 1;
+    for (var contadorViajesHoy = licencia.ViajesHoy; contadorViajesHoy > 0; contadorViajesHoy--) {
+      string += licencia.Viajes[i].toLocaleTimeString() + " ";
+      i--;
+    }
+    fila.innerHTML = "<td>" + (numeroServicio++) + ". " + licencia.Licencia + "</td>" + "<td><b>" + licencia.ViajesHoy + "</b> " + string + "</td>";
+    numeroTotalViajes += licencia.ViajesHoy;
+    tablaLicenciasHoy.appendChild(fila);
+    
+    if (index == array.length - 1) {
+      // Agregar la fila "Total" al inicio de la tabla junto al número total de viajes
+      var filaTotal = document.createElement("tr");
+      filaTotal.innerHTML = "<th>Licencia</th><th>Total: " + numeroTotalViajes + "</th>";
+      tablaLicenciasHoy.insertBefore(filaTotal, tablaLicenciasHoy.firstChild);
+  
+      // Agregar la fila de "Licencias Restantes" después de la fila "Total"
+      var filaLicenciasRestantes = document.createElement("tr");
+      var licenciasNoViaje = encontrarLicenciasFaltantes(licenciasConViajeHoy, todaData);
+      var stringLicenciasNoViaje = "";
+      licenciasNoViaje.forEach(function (item) {
+        if (item.Licencia != undefined) {
+          stringLicenciasNoViaje += item.Licencia.slice(2, item.Licencia.length) + " ";
+        }
+      });
+      filaLicenciasRestantes.innerHTML = "<th>Licencias Restantes: " + (licenciasNoViaje.length - 1) + "</th>" + "<th>" + stringLicenciasNoViaje + "</th>";
+      tablaLicenciasHoy.appendChild(filaLicenciasRestantes);
+    }
   });
+  
+  // Agregar la tabla al documento
+  document.body.appendChild(tablaLicenciasHoy);
+  
   
   // Agregar la tabla de licencias con viaje hoy al documento
   var contenedorTablaLicenciasHoy = document.getElementById("tablaLicenciasHoy");
