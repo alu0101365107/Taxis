@@ -3,11 +3,17 @@ table {
     border-collapse: collapse;
     width: 100%;
     margin-bottom: 20px;
+    border: 1px solid #ccc; /* Borde gris para las tablas */
 }
 
 table, th, td {
     border: 1px solid #ddd;
 }
+
+table td {
+    background-color: #000; /* Fondo negro para las celdas de la tabla */
+    color: #fff; /* Texto blanco para las celdas de la tabla */
+  }
 
 th, td {
     padding: 8px;
@@ -67,8 +73,8 @@ td.viaje.active {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0; /* Color de fondo general */
-    color: #333; /* Color de texto general */
+    background-color: #333; /* Color de fondo para el modo oscuro */
+    color: #fff; /* Color de texto para el modo oscuro */
     transition: background-color 0.5s ease; /* Transición suave para el modo oscuro */
   }
   
