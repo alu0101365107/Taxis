@@ -150,8 +150,10 @@ botonOrdenarPorTotal.addEventListener("click", function () {
   botonOrdenarPorTotal.classList.toggle("orden-activo");
 });
 
-botonOrdenarPorTotal.addEventListener("touchstart", ordenarTablaPorTotal);
 
+botonOrdenarPorTotal.addEventListener("touchstart", function () {
+  ordenarTablaPorTotal();
+});
 
 
 function getDateCorrect(dateStr) {
