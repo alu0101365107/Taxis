@@ -11,6 +11,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   var licenciasConViajeHoy = informacionMultiple.filter(function (item) {
       var viajes = item.Viajes || [];
       for (var i = 0; i < viajes.length ; i++) {
+        if (typeof viajes[i] === 'string') {
           if (getDateCorrect(viajes[i]).toDateString() === hoy.toDateString()) {
             if (item.ViajesHoy == undefined) {
               item.ViajesHoy = 1
@@ -18,6 +19,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
               item.ViajesHoy +=  1
             }
           }
+        }
       }
       if (item.ViajesHoy != undefined) {
         return item
@@ -159,24 +161,25 @@ botonOrdenarPorTotal.addEventListener("pointerdown", ordenarTablaPorTotal);
 
 
 function getDateCorrect(dateStr) {
-  var partes = dateStr.match(/\d+/g);
-  if (partes && partes.length >= 5) {
-    var día = parseInt(partes[0]);
-    var mes = parseInt(partes[1]) - 1;
-    var año = parseInt(partes[2]);
-    var hora = parseInt(partes[3]);
-    var minutos = parseInt(partes[4]);
-    var segundos = 0;
+  if (typeof dateStr !== "number")
+    var partes = dateStr.match(/\d+/g);
+    if (partes && partes.length >= 5) {
+      var día = parseInt(partes[0]);
+      var mes = parseInt(partes[1]) - 1;
+      var año = parseInt(partes[2]);
+      var hora = parseInt(partes[3]);
+      var minutos = parseInt(partes[4]);
+      var segundos = 0;
 
-    // Ajustar el año para manejar años con dos dígitos
-    if (año >= 0 && año <= 49) {
-      año += 2000; // Siglo 21
-    } else if (año >= 50 && año <= 99) {
-      año += 1900; // Siglo 20
+      // Ajustar el año para manejar años con dos dígitos
+      if (año >= 0 && año <= 49) {
+        año += 2000; // Siglo 21
+      } else if (año >= 50 && año <= 99) {
+        año += 1900; // Siglo 20
+      }
+
+      return new Date(año, mes, día, hora, minutos, segundos);
     }
-
-    return new Date(año, mes, día, hora, minutos, segundos);
-  }
 
   return null; // Devolvemos null si no se pudo analizar la fecha
 }

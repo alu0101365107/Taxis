@@ -46,8 +46,10 @@
                 var string = ""
                 fila.innerHTML = "<td>" + item.Licencia + "</td>" +
                                  "<td>" + item.Total + "</td>"
-                item.Viajes.forEach(function (item) {
-                    string += getDateCorrect(item).toLocaleString() + "<br>"
+                item.Viajes.forEach(function (viaje) {
+                    if (typeof viaje === 'string') {
+                        string += getDateCorrect(viaje).toLocaleString() + "<br>"
+                    }
                 })
                 fila.innerHTML += "<td>" + string + "</td>"
                 tbody.appendChild(fila);
