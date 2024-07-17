@@ -7,12 +7,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-
-      
     <h1>Información Organizada</h1>
-    <!-- <div class="button-container">
-        <button id="darkModeButton" class="button">Modo Oscuro</button>
-    </div> -->
     <div id="tablaLicenciasHoy"></div>
     <div class="button-container">
         <button id="sortButton" class="button sort-button">Ordenar por Total</button>
@@ -30,63 +25,7 @@
         </tbody>
     </table>
 
-    <script>
-        // Declarar el arreglo informacionMultiple
-        var informacionMultiple = [];
-        // Función para llenar la tabla con los datos
-        function llenarTabla(data) {
-            var tabla = document.getElementById("informacionTabla");
-            var tbody = tabla.querySelector("tbody");
-            
-            // Limpiar el contenido anterior de tbody
-            tbody.innerHTML = "";
-
-            data.forEach(function (item, index) {
-                var fila = document.createElement("tr");
-                var string = ""
-                fila.innerHTML = "<td>" + item.Licencia + "</td>" +
-                                 "<td>" + item.Total + "</td>"
-                item.Viajes.forEach(function (viaje) {
-                    if (typeof viaje === 'string') {
-                        string += getDateCorrect(viaje).toLocaleString() + "<br>"
-                    }
-                })
-                fila.innerHTML += "<td>" + string + "</td>"
-                tbody.appendChild(fila);
-
-                // Cambiar el diseño a columnas si hay más de 10 filas
-                if (index === 9) {
-                    tabla.classList.add("columnas");
-                }
-            });
-        }
-        // Función para actualizar dinámicamente el contenido del elemento <h1> con la fecha y hora actual
-            function actualizarEncabezado() {
-            const encabezado = document.querySelector("h1");
-            const fechaHoraActual = new Date();
-            const diaSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"][fechaHoraActual.getDay()];
-            const dia = fechaHoraActual.getDate();
-            const mes = fechaHoraActual.getMonth() + 1; // Los meses se cuentan desde 0
-            const año = fechaHoraActual.getFullYear();
-            const hora = fechaHoraActual.getHours();
-            const minutos = fechaHoraActual.getMinutes();
-
-            // Formatear la fecha y hora actual
-            const fechaHoraFormateada = `${diaSemana}, ${dia}/${mes}/${año} ${hora}:${minutos}`;
-
-            // Actualizar el contenido del elemento <h1>
-            encabezado.textContent = `Información Organizada - ${fechaHoraFormateada}`;
-        }
-
-        // Llamar a la función para actualizar el encabezado cuando se cargue la página
-        window.addEventListener("DOMContentLoaded", actualizarEncabezado);
-
-        // Actualizar el encabezado cada minuto (opcional)
-        setInterval(actualizarEncabezado, 60000); // Actualizar cada 1 minuto (60,000 milisegundos)
-    </script>
-
-    <!-- Importar el archivo script.js -->
-    <script src="script.js"></script>
     <script src="getSheetData.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
