@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruka Con PELUKA</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Estilos para el indicador de carga */
+        #loadingIndicator {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Spinner de carga (opcional) */
+        #loadingIndicator::before {
+            content: "";
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #ccc;
+            border-top: 4px solid #1e88e5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animación para el spinner */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Información Organizada</h1>
+
+    <!-- Indicador de carga -->
+    <div id="loadingIndicator">
+        <p>Cargando datos, por favor espere...</p>
+    </div>
+
+    <!-- Tabla de Licencias Hoy -->
+    <div id="tablaLicenciasHoy"></div>
+
+    <!-- Tabla de Piquera -->
+    <div id="tablaPiquera"></div>
+
+    <div class="button-container">
+        <button id="sortButton" class="button sort-button">Ordenar por Total</button>
+    </div>
+
+    <!-- Tabla General de Información -->
+    <table border="1" id="informacionTabla">
+        <thead>
+            <tr>
+                <th>Licencia</th>
+                <th>Total</th>
+                <th>Viajes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se llenarán las filas de la tabla -->
+        </tbody>
+    </table>
+
+    <script src="getSheetData.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+/* Estilos para la tabla */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ccc; /* Borde gris para las tablas */
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+table td {
+    background-color: #000; /* Fondo negro para las celdas de la tabla */
+    color: #fff; /* Texto blanco para las celdas de la tabla */
+  }
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+/* Estilos para la tabla que no puede tener más de 10 filas */
+table.limited {
+    width: 50%; /* La mitad del ancho para mostrar dos tablas lado a lado */
+    float: left;
+    margin-right: 20px; /* Espacio entre las dos tablas */
+}
+
+/* Estilos para el número total en rojo si es más de 10 */
+td.total {
+    color: red;
+}
+
+/* Estilos para las licencias en color naranja */
+td.licencia {
+    color: orange ;
+}
+
+/* Estilos para mostrar las fechas de viaje como calendario */
+td.viaje {
+    display: inline-block;
+    padding: 4px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    margin-right: 4px;
+}
+
+/* Estilos para resaltar las fechas en el calendario */
+td.viaje.active {
+    background-color: #ffcc00;
+    font-weight: bold;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    /* Agregar estilos específicos para móviles aquí */
+    body {
+      font-size: 16px; /* Tamaño de fuente para dispositivos móviles */
+    }
+  }
+  
+  /* Estilos para PC */
+  @media (min-width: 769px) {
+    /* Agregar estilos específicos para PC aquí */
+    body {
+      font-size: 18px; /* Tamaño de fuente para PC */
+    }
+  }
+  
+  /* Estilos generales para toda la página */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #333; /* Color de fondo para el modo oscuro */
+    color: #fff; /* Color de texto para el modo oscuro */
+    transition: background-color 0.5s ease; /* Transición suave para el modo oscuro */
+  }
+  
+  /* Estilos para el encabezado */
+  h1 {
+    text-align: center;
+    background-color: #007acc; /* Color de fondo del encabezado */
+    color: #fff; /* Color de texto del encabezado */
+    padding: 20px;
+    margin: 0;
+  }
+  
+  /* Estilos para la tabla de información */
+  #informacionTabla {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #ccc; /* Borde de la tabla */
+  }
+  
+  #informacionTabla th,
+  #informacionTabla td {
+    padding: 8px 12px;
+    text-align: left;
+  }
+  
+  #informacionTabla th {
+    background-color: #007acc; /* Color de fondo del encabezado de la tabla */
+    color: #fff; /* Color de texto del encabezado de la tabla */
+  }
+  
+  /* Estilos para los botones */
+.button-container {
+    text-align: center; /* Alineación a la derecha */
+    margin-top: 10px;
+  }
+  
+  .button {
+    background-color: #007acc;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 20px; /* Bordes redondos */
+    margin-left: 10px; /* Margen entre botones */
+  }
+  
+  .button:hover {
+    background-color: #005fa3;
+  }
+  /* Estilos para el modo oscuro */
+  .dark-mode {
+    background-color: #333; /* Color de fondo para el modo oscuro */
+    color: #fff; /* Color de texto para el modo oscuro */
+  
+    /* Estilos para las tablas */
+    table {
+      border: 1px solid #ccc; /* Borde gris para las tablas */
+    }
+  
+    table th,
+    table td {
+      background-color: #000; /* Fondo negro para las celdas de la tabla */
+      color: #fff; /* Texto blanco para las celdas de la tabla */
+    }
+  }
+  
+  /* Estilos para la tabla de licencias con viaje hoy */
+  #tablaLicenciasHoy {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff; /* Color de fondo de la tabla */
+    border: 1px solid #ccc; /* Borde de la tabla */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-collapse: collapse;
+  }
+  
+  #tablaLicenciasHoy th,
+  #tablaLicenciasHoy td {
+    padding: 8px 12px;
+    text-align: left;
+  }
+  
+  #tablaLicenciasHoy th {
+    background-color: #007acc; /* Color de fondo del encabezado de la tabla */
+    color: #fff; /* Color de texto del encabezado de la tabla */
+  }
+
+  /* Estilos para la tabla de licencias con viaje hoy */
+  #tablaPiquera {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #007acc; /* Color de fondo de la tabla */
+    border: 1px solid #ccc; /* Borde de la tabla */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-collapse: collapse;
+  }
+  
+  #tablaPiquera th,
+  #tablaPiquera td {
+    padding: 8px 12px;
+    text-align: left;
+  }
+  
+  #tablaPiquera table th {
+    background-color: #007acc; /* Color de fondo del encabezado de la tabla */
+    color: #fff; /* Color de texto del encabezado de la tabla */
+  }
+  
+  /* Estilos para el botón de ordenar */
+  .sort-button {
+    background-color: #007acc; /* Color de fondo del botón de ordenar */
+    color: #fff; /* Color de texto del botón de ordenar */
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+  }
+  
+  .sort-button:hover {
+    background-color: #005fa3; /* Color de fondo del botón de ordenar al pasar el ratón */
+  }
+  
