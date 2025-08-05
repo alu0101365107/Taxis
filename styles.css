@@ -198,3 +198,6 @@ td.viaje.active {
     background-color: #005fa3; /* Color de fondo del botón de ordenar al pasar el ratón */
   }
   
+  .bg-red { background-color: #c21d1d; }
+  .bg-green { background-color: #22a422; }
+  .bg-black { background-color: #000000; color: #ffffff; }
